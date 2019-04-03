@@ -5,8 +5,7 @@ type Scene struct {
 }
 
 func (scene Scene) hit(r *Ray, tmin float64, tmax float64) (bool, HitRecord) {
-	var tempRecord HitRecord
-	var finalRec HitRecord
+	var finalRec, tempRecord HitRecord
 	var isHit bool
 	hitAnything := false
 	closest := tmax
