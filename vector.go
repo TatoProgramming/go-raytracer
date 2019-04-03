@@ -28,9 +28,9 @@ func (a Vector) Add(b Vector) Vector {
 
 func (a Vector) Subtract(b Vector) Vector {
 	return Vector{
-		b.X - a.X,
-		b.Y - a.Y,
-		b.Z - a.Z,
+		a.X - b.X,
+		a.Y - b.Y,
+		a.Z - b.Z,
 	}
 }
 

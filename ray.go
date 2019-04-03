@@ -1,5 +1,10 @@
 package main
 
+type HitRecord struct {
+	T         float64
+	P, Normal Vector
+}
+
 type Ray struct {
 	Origin, Direction Vector
 }
