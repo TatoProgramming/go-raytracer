@@ -18,7 +18,7 @@ func color(r *Ray, world *Scene) Vector {
 
 func main() {
 	const colorFactor = 255.99
-	nx, ny := 300, 150
+	nx, ny, ns := 300, 150, 100
 	f, _ := os.Create("out.ppm")
 
 	fmt.Fprintf(f, "P3\n%d %d\n255\n", nx, ny)
@@ -31,14 +31,22 @@ func main() {
 	world := Scene{make([]Hitable, 2)}
 	world.Objects[0] = Sphere{Center: Vector{Z: -1.0}, Color: Vector{X: 1.0, Y: 0.0, Z: 0.0}, Radius: 0.5}
 	world.Objects[1] = Sphere{Center: Vector{Y: -100.5, Z: -1.0}, Color: Vector{X: 1.0, Y: 0.0, Z: 0.0}, Radius: 100.0}
+
+	cam := Camera{
+		Vector{-2.0, -1.0, -1.0},
+		Vector{X: 4.0},
+		Vector{Y: 2.0},
+		NewVector(0.0),
+	}
+
 	for j := ny - 1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {
+			col := Vector
+			for s := 0; s < ns;
 			u := float64(i) / float64(nx)
 			v := float64(j) / float64(ny)
 			r := Ray{origin, lowerLeftCorner.Add(horizontal.Mult(u).Add(vertical.Mult(v)))}
-
-			// p := r.PointAt(2.0)
-			col := color(&r, &world)
+			col.Add(color(&r, &world))
 			ir, ig, ib := int(col.X*colorFactor), int(col.Y*colorFactor), int(col.Z*colorFactor)
 			fmt.Fprintf(f, "%d %d %d\n", ir, ig, ib)
 		}
