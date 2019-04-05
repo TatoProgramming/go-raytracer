@@ -11,6 +11,7 @@ type Hitable interface {
 type Sphere struct {
 	Center, Color Vector
 	Radius        float64
+	Mat Material
 }
 
 func (s Sphere) hit(r *Ray, tmin float64, tmax float64) (bool, HitRecord) {
@@ -26,6 +27,7 @@ func (s Sphere) hit(r *Ray, tmin float64, tmax float64) (bool, HitRecord) {
 			rec.T = temp
 			rec.P = r.PointAt(rec.T)
 			rec.Normal = (rec.P.Subtract(s.Center)).DivideScalar(s.Radius)
+			rec.Mat = s.Mat
 			return true, rec
 		}
 		temp = (-b + math.Sqrt(discriminant)) / a
@@ -33,6 +35,7 @@ func (s Sphere) hit(r *Ray, tmin float64, tmax float64) (bool, HitRecord) {
 			rec.T = temp
 			rec.P = r.PointAt(rec.T)
 			rec.Normal = (rec.P.Subtract(s.Center)).DivideScalar(s.Radius)
+			rec.Mat = s.Mat
 			return true, rec
 		}
 	}

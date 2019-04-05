@@ -10,6 +10,14 @@ func NewVector(f float64) Vector {
 	return Vector{f, f, f}
 }
 
+func (a Vector) MultV(b Vector) Vector {
+	return Vector{
+		a.X * b.X,
+		a.Y * b.Y,
+		a.Z * b.Z,
+	}
+}
+
 func (a Vector) Mult(t float64) Vector {
 	return Vector{
 		a.X * t,
@@ -64,4 +72,8 @@ func (v Vector) SquaredLength() float64 {
 
 func (v Vector) MakeUnitVector() Vector {
 	return v.DivideScalar(v.Length())
+}
+
+func (v Vector) Reflect(n Vector) Vector {
+	return v.Subtract(n.Mult(v.Dot(n)).Mult(2.0))
 }
