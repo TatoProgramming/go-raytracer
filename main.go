@@ -35,7 +35,7 @@ func randomInUnitSphere() Vector {
 
 func main() {
 	const colorFactor = 255.99
-	nx, ny, ns := 1920*2, 1080*2, 100
+	nx, ny, ns := 720/2, 480/2, 100
 	f, _ := os.Create("out.ppm")
 
 	fmt.Fprintf(f, "P3\n%d %d\n255\n", nx, ny)
@@ -72,8 +72,8 @@ func main() {
 		Center: Vector{-1.0, 0.0, -1.0},
 		Color: Vector{X: 1.0, Y: 0.0, Z: 0.0},
 		Radius: 0.5,
-		Mat: Metal{
-			Albedo: Vector{0.8,0.8,0.8},
+		Mat: Dielectric{
+			refractionIndex: 1.5,
 		},
 	}
 

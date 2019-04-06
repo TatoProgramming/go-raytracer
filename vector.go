@@ -77,3 +77,16 @@ func (v Vector) MakeUnitVector() Vector {
 func (v Vector) Reflect(n Vector) Vector {
 	return v.Subtract(n.Mult(v.Dot(n)).Mult(2.0))
 }
+
+
+func (v Vector) Refract(n Vector, ni_over_nt float64) (bool, Vector){
+	uv := v.MakeUnitVector()
+	dt := uv.Dot(n)
+	discriminant := 1.0 - ni_over_nt*ni_over_nt*(1.0 - dt*dt)
+	var refracted Vector
+	if discriminant > 0.0{
+		refracted = uv.Subtract(n.Mult(dt)).Mult(ni_over_nt).Subtract(n.Mult(math.Sqrt(discriminant)))
+		return true, refracted
+	}
+	return false, refracted
+}
