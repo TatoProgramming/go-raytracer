@@ -1,5 +1,6 @@
 # Go-lang Raytracer
-Add more info and stuff later.
+This is a go-land version of Ray Tracing in One Weekend By Peter Shirley.
+https://drive.google.com/drive/folders/14yayBb9XiL16lmuhbYhhvea8mKUUK77W
 
 ## Images
 Four Spheres one metal, diffuse, and glass
@@ -8,18 +9,24 @@ Four Spheres one metal, diffuse, and glass
 Four Spheres the glass sphere is hollow
 ![alt text](https://github.com/TatoProgramming/go-raytracer/blob/master/images/four.png)
 
+
+
+Final images 4k, 100 super samples, and 50 bounces.
+![alt text](https://github.com/TatoProgramming/go-raytracer/blob/master/images/final.png)
+
+
 TODO:
 
-Add progress bar.
+- Add progress bar.
 
-Optimize!
+- Optimize!
 
-Add textures
+- Render triangles
 
-Render triangles
+- Add textures
 
-Ability to render models
+- Ability to render models
 
-soft shadows
+- soft shadows
 
-Multiple lights
+- Multiple lights
