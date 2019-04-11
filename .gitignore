@@ -1,4 +1,4 @@
 practice.exe
 .git/
-*.ppm
-*.png
+out.ppm
+out.png
