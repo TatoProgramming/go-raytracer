@@ -3,7 +3,7 @@ Add more info and stuff later.
 
 ## Images
 Four Spheres one metal, diffuse, and glass
-![alt text](https://github.com/TatoProgramming/go-raytracer/tree/master/images/three.png)
+![alt text](https://github.com/TatoProgramming/go-raytracer/blob/master/images/three.png)
 
 Four Spheres the glass sphere is hollow
 ![alt text](https://github.com/TatoProgramming/go-raytracer/blob/master/images/four.png)
