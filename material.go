@@ -1,5 +1,8 @@
 package main
 
+import(
+	"math/rand"
+)
 
 type Material interface {
 	scatter(r *Ray, rec HitRecord) (bool, Vector, Ray)
@@ -33,27 +36,35 @@ func (l Metal) scatter(r *Ray, rec HitRecord) (bool, Vector, Ray) {
 func (l Dielectric) scatter(r *Ray, rec HitRecord) (bool, Vector, Ray) {
 	var scattered Ray
 	var outwardNormal Vector
-	isHit := true
 	reflected := r.Direction.Reflect(rec.Normal)
 	var ni_over_nt float64
-	attenuation := Vector{1.0, 1.0, 0.0}
+	attenuation := Vector{1.0, 1.0, 1.0}
 
+	var reflectProb float64
+	var cosine float64
 	var refracted Vector
+
 	if r.Direction.Dot(rec.Normal) > 0{
 		outwardNormal = Vector{-rec.Normal.X,-rec.Normal.Y,-rec.Normal.Z}
 		ni_over_nt = l.refractionIndex
+		cosine = l.refractionIndex * r.Direction.Dot(rec.Normal) / r.Direction.Length()
 	}else{
 		outwardNormal = rec.Normal
 		ni_over_nt = 1.0 / l.refractionIndex
+		cosine = -r.Direction.Dot(rec.Normal) / r.Direction.Length()
 	}
 
 
 	isRefracted, refracted := r.Direction.Refract(outwardNormal, ni_over_nt)
 	if isRefracted {
-		scattered = Ray{rec.P, refracted}
+		reflectProb = schlick(cosine, l.refractionIndex)
 	}else{
-		scattered = Ray{rec.P, reflected}
-		isHit = false
+		reflectProb = 1.0
 	}
-	return isHit, attenuation, scattered
+	if rand.Float64() < reflectProb {
+		scattered = Ray{rec.P, reflected}
+	}else{
+		scattered = Ray{rec.P, refracted}
+	}
+	return true, attenuation, scattered
 }

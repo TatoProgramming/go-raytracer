@@ -35,54 +35,31 @@ func randomInUnitSphere() Vector {
 
 func main() {
 	const colorFactor = 255.99
-	nx, ny, ns := 720/2, 480/2, 100
+	nx, ny, ns := 1920*2, 1080*2, 100
+	// nx, ny, ns := 1920/2, 1080/2, 100
+	// nx, ny, ns := 300, 150, 100
 	f, _ := os.Create("out.ppm")
 
 	fmt.Fprintf(f, "P3\n%d %d\n255\n", nx, ny)
 
-	world := Scene{make([]Hitable, 4)}
-	world.Objects[0] = Sphere{
-		Center: Vector{Z: -1.0},
-		Color: Vector{X: 1.0, Y: 0.0, Z: 0.0},
-		Radius: 0.5,
-		Mat: Lambertian{
-			Albedo: Vector{0.8,0.3,0.3},
-		},
-	}
 
-	world.Objects[1] = Sphere{
-		Center: Vector{Y: -100.5, Z: -1.0},
-		Color: Vector{X: 1.0, Y: 0.0, Z: 0.0},
-		Radius: 100.0,
-		Mat: Lambertian{
-			Albedo: Vector{0.8,0.8,0.0},
-		},
-	}
+	// random Scene
+	world := RandomScene()
 
-	world.Objects[2] = Sphere{
-		Center: Vector{1.0, 0.0, -1.0},
-		Color: Vector{X: 1.0, Y: 0.0, Z: 0.0},
-		Radius: 0.5,
-		Mat: Metal{
-			Albedo: Vector{0.8,0.6,0.2},
-		},
-	}
+	lookFrom := Vector{13.0, 2.0, 3.0}
+	lookAt := Vector{ 0.0, 0.0, 0.0}
+	focusDist := lookFrom.Subtract(lookAt).Length()
+	aperture := 0.1
 
-	world.Objects[3] = Sphere{
-		Center: Vector{-1.0, 0.0, -1.0},
-		Color: Vector{X: 1.0, Y: 0.0, Z: 0.0},
-		Radius: 0.5,
-		Mat: Dielectric{
-			refractionIndex: 1.5,
-		},
-	}
-
-	cam := Camera{
-		Vector{-2.0, -1.0, -1.0},
-		Vector{X: 4.0},
-		Vector{Y: 2.0},
-		NewVector(0.0),
-	}
+	cam := NewCamera(
+		lookFrom,
+		lookAt,
+		Vector{ 0.0, 1.0, 0.0},
+		20,
+		float64(nx)/float64(ny),
+		aperture,
+		focusDist,
+	)
 
 	for j := ny - 1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {

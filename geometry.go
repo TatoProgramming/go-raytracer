@@ -9,8 +9,8 @@ type Hitable interface {
 }
 
 type Sphere struct {
-	Center, Color Vector
-	Radius        float64
+	Center Vector
+	Radius float64
 	Mat Material
 }
 

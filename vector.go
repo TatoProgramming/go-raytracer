@@ -62,6 +62,14 @@ func (a Vector) Dot(b Vector) float64 {
 	return a.X*b.X + a.Y*b.Y + a.Z*b.Z
 }
 
+func (a Vector) Cross(b Vector) Vector {
+	return Vector{
+		a.Y*b.Z - a.Z*b.Y,
+		-(a.X*b.Z - a.Z*b.X),
+		a.X*b.Y - a.Y*b.X,
+	}
+}
+
 func (v Vector) Length() float64 {
 	return math.Sqrt(v.SquaredLength())
 }
