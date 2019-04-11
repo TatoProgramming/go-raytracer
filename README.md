@@ -3,6 +3,8 @@ Add more info and stuff later.
 
 TODO:
 
+Add progress bar.
+
 Optimize!
 
 Add textures
